@@ -1,12 +1,12 @@
 <?PHP // HUID usage examples in PHP
 require_once('huid.php');
 
-$primaryHost   = '1b3d';
-$secondaryHost = '5f7';
+$primaryNS   = '1b3d';
+$secondaryNS = '5f7';
 ?>
 <pre>HUID String Example
 <?PHP
-echo getHUID($primaryHost, $secondaryHost);
+echo getHUID($primaryNS, $secondaryNS);
 
 /* OUTPUT:
 00000056b24b88-229a6c4-1b3d-5f7-581e
@@ -15,7 +15,7 @@ echo getHUID($primaryHost, $secondaryHost);
 
 HUID Hexadecimal Example
 <?PHP
-echo getHUID($primaryHost, $secondaryHost, 'hex');
+echo getHUID($primaryNS, $secondaryNS, 'hex');
 
 /* OUTPUT:
 00000056b24b88229a6c41b3d5f7581e
@@ -24,7 +24,7 @@ echo getHUID($primaryHost, $secondaryHost, 'hex');
 
 HUID Binary Example
 <?PHP
-echo getHUID($primaryHost, $secondaryHost, 'bin');
+echo getHUID($primaryNS, $secondaryNS, 'bin');
 
 /* OUTPUT:
 V�K�"�lA���X
@@ -33,7 +33,7 @@ V�K�"�lA���X
 
 HUID Object Example
 <?PHP
-print_r(getHUID($primaryHost, $secondaryHost, 'obj'));
+print_r(getHUID($primaryNS, $secondaryNS, 'obj'));
 
 /* OUTPUT:
 stdClass Object
