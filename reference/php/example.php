@@ -9,7 +9,7 @@ $secondaryHost = '5f7';
 echo getHUID($primaryHost, $secondaryHost);
 
 /* OUTPUT:
-1b3d-5f7-7bd0-00000056b17aec-0eb742c
+00000056b24b88-229a6c4-1b3d-5f7-581e
 */
 ?>
 
@@ -18,7 +18,7 @@ HUID Hexadecimal Example
 echo getHUID($primaryHost, $secondaryHost, 'hex');
 
 /* OUTPUT:
-1b3d5f77bd000000056b17aec0eb742c
+00000056b24b88229a6c41b3d5f7581e
 */
 ?>
 
@@ -27,7 +27,7 @@ HUID Binary Example
 echo getHUID($primaryHost, $secondaryHost, 'bin');
 
 /* OUTPUT:
-=_w�k���t,
+V�K�"�lA���X
 */
 ?>
 
@@ -38,9 +38,9 @@ print_r(getHUID($primaryHost, $secondaryHost, 'obj'));
 /* OUTPUT:
 stdClass Object
 (
-    [str] => 1b3d-5f7-7bd0-00000056b17aec-0eb742c
-    [hex] => 1b3d5f77bd000000056b17aec0eb742c
-    [bin] => =_w�k���t,
+    [str] => 00000056b24b88-229a6c4-1b3d-5f7-581e
+    [hex] => 00000056b24b88229a6c41b3d5f7581e
+    [bin] => V�K�"�lA���X
 )
 */
 
