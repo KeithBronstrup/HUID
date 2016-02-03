@@ -15,12 +15,12 @@ A HUID is comprised of a primary and secondary host ID, a random component, a
 UNIX timestamp, and a microsecond count, in the format
 `AAAA-BBB-CCCC-DDDDDDDDDDDDDD-EEEEEEE` where the components are as follows:
 
-* __Segment A:__ 4 hexadecimal digits to identify the primary host, determined and
-provided by the application.
+* __Segment A:__ 4 hexadecimal digits to identify the primary host, determined
+and provided by the application.
 
-* __Segment B:__ 3 hexadecimal digits to identify the secondary host, determined and
-provided by the application. If no secondary host (such as a database server or
-key store) is used, or it is note deemed beneficial to the application to
+* __Segment B:__ 3 hexadecimal digits to identify the secondary host, determined
+and provided by the application. If no secondary host (such as a database server
+or key store) is used, or it is note deemed beneficial to the application to
 identify this host, thee digits may be used to extend the primary host ID.
 
 * __Segment C:__ 4 random hexadecimal digits.
@@ -71,8 +71,9 @@ this allows for 65,536 unique host IDs and 4,096 unique node IDs.
 * As the likelihood of two HUIDs created on the same host in the same
 microsecond having the same random component in segment C is 1:65536, and
 because it is highly unlikely that a single host will be able to generate
-multiple HUIDs in a single microsecond, the possibility of a collision is
-infinitesimally small.
+multiple HUIDs in a single microsecond, the probability of a collision is
+infinitesimally small, considerably less likely than the probability of a UUID
+collision.
 
 * The use of 56 bits to represent the current timestamp ensures that the HUID
 will work for a given application and host ID combination for 2,284,933,287.8
