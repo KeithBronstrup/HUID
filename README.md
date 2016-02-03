@@ -1,0 +1,2 @@
+# HUID
+Host Unique Identifier
