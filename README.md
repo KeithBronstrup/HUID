@@ -59,8 +59,9 @@ Unlike some versions of UUID (v3-v5), the HUID is not intended to be
 cryptographically secure, and should not be used in cryptographic applications.
 If you need a cryptographically secure number, and not just a unique identifier,
 UUID is, by far, a better choice than HUID. Likewise, if the ability to identify
-the host which generated is undesired, HUID is not the right choice for your
-application, as it is this ability which comprises most the advantages of HUID.
+the host which generated a given ID or record is undesired, HUID is not the right
+choice for your application, as it is this ability which provides most of the
+advantages of HUID.
 
 Some of the advantages of HUID can be shoehorned into UUIDv3-v5, in violation of
 the specifications, but doing so brings its own set of problems. For example, if
