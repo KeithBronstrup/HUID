@@ -6,6 +6,9 @@ Unique Identifier (UUID), with the added ability to identify the host that
 generated a given record and, optionally, the data store entrypoint where the
 record was first stored.
 
+##### The HUID specification is currently under development and is changing rapidly.
+##### It should not be considered stable enough for production use at this time.
+
 This README is intended to describe the HUID in-depth and this repository is
 intended to house reference implementations in various languages.
 
@@ -13,69 +16,92 @@ intended to house reference implementations in various languages.
 
 A HUID is comprised of a primary and secondary host ID, a random component, a
 UNIX timestamp, and a microsecond count, in the format
-`AAAA-BBB-CCCC-DDDDDDDDDDDDDD-EEEEEEE` where the components are as follows:
+`AAAAAAAAAAAAAA-BBBBBBB-AAAA-BBB-CCCC` where the components are as follows:
 
-* __Segment A:__ 4 hexadecimal digits to identify the primary host, determined
-and provided by the application.
-
-* __Segment B:__ 3 hexadecimal digits to identify the secondary host, determined
-and provided by the application. If no secondary host (such as a database server
-or key store) is used, or it is note deemed beneficial to the application to
-identify this host, thee digits may be used to extend the primary host ID.
-
-* __Segment C:__ 4 random hexadecimal digits.
-
-* __Segment D:__ 14 hexadecimal digits to represent the current UNIX timestamp,
+* __Component A:__ 14 hexadecimal digits to represent the current UNIX timestamp,
 allowing for 56 bits and the ability to represet over 2.25 billion years.
 
-* __Segment E:__ 7 hedadecimal digits to represent the current microsecond.
+* __Component B:__ 7 hedadecimal digits to represent the current microsecond.
+
+* __Component C:__ 4 hexadecimal digits as a primary namespace, which can be used
+to identify the host which generated the ID.
+
+* __Component D:__ 3 hexadecimal digits as a secondary namespace, which can be
+used to identify the host, user, or group for which the ID was created, as an
+extension of the primary namespace, or as an additional random component.
+
+* __Component E:__ 4 random hexadecimal digits.
 
 ### Is HUID really better than UUID? And if so, how?
 
 In certain instances, HUID is superior to UUID; in many others, the two are
 roughly equivalent; in a few, UUID is superior.
 
-One common instance where HUID is superior is when you have multiple hosts
-simultaneously writing to the same multi-master database. Using HUID for your
-primary key allows one host to write to multiple database masters, or multiple
-hosts to write to one or more database masters simultaneously, without risk of
-colliding IDs. This is achieved by allowing the application to identify the host
-creating the record in segment A and the database master the record is being
-written to in segment B, so even if segments C, D, and E are identical, IDs
-still differ.
+One common use-case where HUID is superior is writing to a multi-master
+database. If two hosts insert records with the same primary key into two
+different masters at the same time (or faster than replication occurs), the
+collision will cause replication to fail and introduce data inconsistency.
+Using UUID instead of an auto-incrementing field can reduce the likelihood of
+such a collision, but using HUID can eliminate it altogether.
 
-In the above scenario, it would be possible for a one or more hosts to generate
-colliding UUIDs when writing to multiple database masters, potentially breaking
-database replication. Because HUID allows for identification of the originating
-host and receiving database master, such collisions are impossible.
+This is because UUID values (aside from UUIDv1 and v2) are based on a hash or
+randomness, both of which are prone to random collisions; UUIDv1 and v2 do
+include a host identifier and a time component, but they do not include a
+random component, so time-based collisions are common. HUID values are based on
+two time-based components, a primary namespace (host identifier), a secondary
+namespace (which can extend the host identifier, identify a user, group, or
+another host, or simply be stuffed with additional random bytes), and a random
+component. This ensures that, as with UUIDv1 and v2, no two hosts in a properly
+configured system will generate the same HUID, while providing additional
+protection against time-based collisions on a given host.
+
+Unlike some versions of UUID (v3-v5), the HUID is not intended to be
+cryptographically secure, and should not be used in cryptographic applications.
+If you need a cryptographically secure number, and not just a unique identifier,
+UUID is, by far, a better choice than HUID. Likewise, if the ability to identify
+the host which generated is undesired, HUID is not the right choice for your
+application, as it is this ability which comprises most the advantages of HUID.
+
+Some of the advantages of HUID can be shoehorned into UUIDv3-v5, in violation of
+the specifications, but doing so brings its own set of problems. For example, if
+a developer, new to your project, sees that UUID is being used, but that the
+implementation is nonstandard, they may take it upon themselves to "correct"
+that implementation. Since collisions are exceedingly rare, it may be months,
+years, or even decades before this is noticed, likely when a collision causes
+your application to fail catastrophically. Using a spec which natively accounts
+for per-host and per-user uniqueness prevents this possibility, by giving the
+enterprising developer no out-of-spec implementation to "fix".
 
 ### Advantages of HUID
-
-* When using truly unique primary and secondary host IDs as specified, HUID
-shrinks the ID collision window to records created on a single host in a single
-microsecond. Compare to UUID where any two hosts may generate identical values
-at any point in time. HUID can identify 65,536 primary hosts and 4,096 secondary
-hosts, or 268,435,456 hosts if segments A and B are combined.
 
 * Like UUID, HUID can be represented as a 36 character string, a 32 digit
 hexadecimal number, or a 16 byte binary string.
 
-* An individual host may use all 7 digits of segments A and B as its host ID, as
-would be ideal in applications utilizing a data store with a single node
-handling all write operations, providing a total of 268,435,456 possible
-unique host IDs. Alternately, and ideal or applications which utilize a data
-store with multiple write-enabled nodes, segment A can be used as the host ID,
-with segment B being used to identify the node to which the data was written;
-this allows for 65,536 unique host IDs and 4,096 unique node IDs.
+* Similar to UUIDv1, HUID is intended to identify the host which generated the
+ID and may identify the user, as done by UUIDv2, as well, by way of the
+secondary namespace.
 
-* As the likelihood of two HUIDs created on the same host in the same
-microsecond having the same random component in segment C is 1:65536, and
-because it is highly unlikely that a single host will be able to generate
-multiple HUIDs in a single microsecond, the probability of a collision is
-infinitesimally small, considerably less likely than the probability of a UUID
-collision.
+* HUID provides 268,435,456 namespaces, which may be divided into 65,536 primary
+namespaces and 4,096 secondary namespaces.
+
+* As with UUIDv1 and v2, HUID also has a strong time-based component, though
+it differs by also including a random component, reducing the likelihood of
+time-based collisions for which UUIDv1 and v2 are often avoided. 
+
+* An individual host may utilize both namespace components to identify itself,
+or it may use the first namespace component to identify itself and the second to
+identify the user, group, or host for which the ID was created. Alternately, the
+second namespace component may be used to introduce additional randomness,
+providing further protection against time-based collisions.
+
+* When utilizing both namespace components, the likelihood of two HUIDs generated
+on the same host (and, potentially, those created _for_ a single user, group,
+host) within the same microsecond (a near impossibility in itself) is 1:65,536,
+due to the inclusion of a random component; this is an advantage over UUIDv1 and
+v2. If the second namespace component is used as an additional source of
+randomness, that likelihood drops to 1:268,435,456.
 
 * The use of 56 bits to represent the current timestamp ensures that the HUID
-will work for a given application and host ID combination for 2,284,933,287.8
-years before the overflow wraparound creates the potential for segments D and E
-to be repeated for the same host ID pair. 
+will work for a given application and namespace pair for 2,284,933,287.8 years
+before the overflow wraparound creates the potential for the time components to
+be repeated.
