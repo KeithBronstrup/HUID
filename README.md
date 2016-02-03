@@ -44,6 +44,11 @@ creating the record in segment A and the database master the record is being
 written to in segment B, so even if segments C, D, and E are identical, IDs
 still differ.
 
+In the above scenario, it would be possible for a one or more hosts to generate
+colliding UUIDs when writing to multiple database masters, potentially breaking
+database replication. Because HUID allows for identification of the originating
+host and receiving database master, preventing such collisions.
+
 ### Advantages of HUID
 
 * When using truly unique primary and secondary host IDs as specified, HUID
