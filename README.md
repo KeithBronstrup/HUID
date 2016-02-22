@@ -16,7 +16,7 @@ intended to house reference implementations in various languages.
 
 A HUID is comprised of a primary and secondary host ID, a random component, a
 UNIX timestamp, and a microsecond count, in the format
-`AAAAAAAAAAAAAA-BBBBBBB-AAAA-BBB-CCCC` where the components are as follows:
+`AAAAAAAAAAAAAA-BBBBBBB-CCCC-DDD-EEEE` where the components are as follows:
 
 * __Component A:__ 14 hexadecimal digits to represent the current UNIX timestamp,
 allowing for 56 bits and the ability to represet over 2.25 billion years.
