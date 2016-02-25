@@ -24,7 +24,7 @@ this repository as a dependency, like so:
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/KeMBro2012/HUID"
+            "url": "https://github.com/KeMBro2012/HUID.git"
         }
     ],
     "require": {
