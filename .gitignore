@@ -1,0 +1,7 @@
+# OSX Cruft
+.DS_Store
+
+# IDE Cruft (IntelliJ IDEA)
+/.idea/
+*.iml
+
