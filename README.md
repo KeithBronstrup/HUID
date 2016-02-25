@@ -6,8 +6,8 @@ Unique Identifier (UUID), with the added ability to identify the host that
 generated a given record and, optionally, the data store entrypoint where the
 record was first stored.
 
-##### The HUID specification is currently under development and is changing rapidly.
-##### It should not be considered stable enough for production use at this time.
+#### The HUID specification has been finalized.
+#### It can be considered stable enough for production use at this time.
 
 This README is intended to describe the HUID in-depth and this repository is
 intended to house reference implementations in various languages.
