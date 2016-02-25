@@ -1,9 +1,11 @@
-<?PHP // HUID Reference implementation in PHP
+<?php // Copyright (c) 2016 Keith Bronstrup and Contributors
+
+// HUID Reference implementation in PHP
 
 /** 
  * Generate a Host Unique Identifier
  * 
- * @param string $primaryNS    The primary namespace, 4 hexadecimal characterd
+ * @param string $primaryNS    The primary namespace, 4 hexadecimal characters
  * @param string $secondaryNS  The secondary namespace, 3 hexadecimal characters
  * @param string $format       The desired output format, one of 'str', 'hex', 'bin', or 'obj'. Default 'str'
  *                              - str: Return a 36 character string in the format AAAAAAAAAAAAAA-BBBBBBB-CCCC-DDD-EEEE
@@ -15,7 +17,8 @@
  * @example /reference/php/example.php
  */
 
-function getHUID ($primaryNS, $secondaryNS, $format = 'str') {
+function getHUID ($primaryNS, $secondaryNS, $format = 'str')
+{
 	if (strlen($primaryNS) === 4
 	 && strlen($secondaryNS) === 3
 	 && ctype_xdigit($primaryNS)

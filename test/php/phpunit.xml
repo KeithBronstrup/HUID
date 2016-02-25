@@ -1,0 +1,19 @@
+<phpunit bootstrap="load.php">
+	<testsuites>
+		<testsuite name="all">
+			<file>tests/__constructTest.php</file>
+			<file>tests/protectedTest.php</file>
+			<file>tests/setNSTest.php</file>
+			<file>tests/getNSTest.php</file>
+			<file>tests/generateTest.php</file>
+			<file>tests/getTest.php</file>
+			<file>tests/strToHexTest.php</file>
+			<file>tests/strToBinTest.php</file>
+			<file>tests/hexToStrTest.php</file>
+			<file>tests/hexToBinTest.php</file>
+			<file>tests/binToStrTest.php</file>
+			<file>tests/binToHexTest.php</file>
+			<file>tests/validateHUIDTest.php</file>
+		</testsuite>
+	</testsuites>
+</phpunit>
