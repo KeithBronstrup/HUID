@@ -106,3 +106,7 @@ randomness, that likelihood drops to 1:268,435,456.
 will work for a given application and namespace pair for 2,284,933,287.8 years
 before the overflow wraparound creates the potential for the time components to
 be repeated.
+
+-----
+##### Copyright (c) 2016 Keith Bronstrup and Contributors
+
