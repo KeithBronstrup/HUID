@@ -43,26 +43,29 @@ The most basic usage of the HUID class is to simply instantiate it (after
 `require()`ing it if not utilizing an autoloader), passing in your primary and
 secondary namespace, then call the `get()` method, like so:
 ```
-$HUID = new HUID('aaaa', 'bbb');
+$HUID = new HUID('5555', '6666');
 $HUIDValue = $HUID->get();
 ```
 
 In the above example, the value of `$HUIDValue` will be something similar to
-`00000056ceb810-4151c70-aaaa-bbb-bbf0`. Calling `get()` a second time will yield
+`00000056ceb810-4151c-5555-6666-bbf0e`. Calling `get()` a second time will yield
 the same result; to get a new HUID value, call the `generate()` method.
 
 If you wish to instantiate the HUID class without generating a HUID value,
 omit the namespace parameters, like so:
+
 ```
 $HUID = new HUID();
 $HUIDValue = $HUID->get();
 ```
 
-In this example, the value of `$HUIDValue` will be `false`.
+In this example, the value of `$HUIDValue` will be `false` because no namespace
+values were given to the HUID instance when it was instantiated.
 
 ### Additional Documentation
 
-For additional documentation, refer to the comments in `/bin/php/huid.php`.
+For additional documentation, refer to the comments in the [PHP 
+Library](https://github.com/KeMBro2012/HUID/blob/master/bin/php/huid.php).
 
 -----
 ##### Copyright (c) 2016 Keith Bronstrup and Contributors
