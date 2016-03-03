@@ -14,7 +14,7 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidStr ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333-4444444-5555-666-7777';
+		$testHUID = '33333333333333-44444-5555-6666-77777';
 		$this->assertEquals('str', $HUID->validateHUID($testHUID));
 	}
 
@@ -31,10 +31,10 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidStrWithMatchingNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333-4444444-5555-666-7777';
+		$testHUID = '33333333333333-44444-5555-6666-77777';
 		$this->assertEquals('str', $HUID->validateHUID($testHUID, '5555'));
-		$this->assertEquals('str', $HUID->validateHUID($testHUID, null, '666'));
-		$this->assertEquals('str', $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals('str', $HUID->validateHUID($testHUID, null, '6666'));
+		$this->assertEquals('str', $HUID->validateHUID($testHUID, '5555', '6666'));
 	}
 
 
@@ -50,10 +50,10 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidStrWithNonmatchingNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333-4444444-5555-666-7777';
+		$testHUID = '33333333333333-44444-5555-6666-77777';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbb'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbbb'));
 	}
 
 
@@ -69,12 +69,12 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidStrWithInvalidNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333-4444444-5555-666-7777';
+		$testHUID = '33333333333333-44444-5555-6666-77777';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '66'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
 	}
 
 
@@ -89,19 +89,19 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testInvalidStr ()
 	{
 		$HUID = new HUID;
-		$testHUID = '3333333333333-444444-555-66-777';
+		$testHUID = '3333333333333-4444-555-666-7777';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '6666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '6666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbb'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbbb'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '6666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '66'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '66'));
 	}
 
 
@@ -116,7 +116,7 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidHex ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333444444455556667777';
+		$testHUID = '33333333333333444445555666677777';
 		$this->assertEquals('hex', $HUID->validateHUID($testHUID));
 	}
 
@@ -132,10 +132,10 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidHexWithMatchingNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333444444455556667777';
+		$testHUID = '33333333333333444445555666677777';
 		$this->assertEquals('hex', $HUID->validateHUID($testHUID, '5555'));
-		$this->assertEquals('hex', $HUID->validateHUID($testHUID, null, '666'));
-		$this->assertEquals('hex', $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals('hex', $HUID->validateHUID($testHUID, null, '6666'));
+		$this->assertEquals('hex', $HUID->validateHUID($testHUID, '5555', '6666'));
 	}
 
 
@@ -150,10 +150,10 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidHexWithNonmatchingNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333444444455556667777';
+		$testHUID = '33333333333333444445555666677777';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbb'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbbb'));
 	}
 
 
@@ -168,12 +168,12 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidHexWithInvalidNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '33333333333333444444455556667777';
+		$testHUID = '33333333333333444445555666677777';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '66'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
 	}
 
 
@@ -188,19 +188,19 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testInvalidHex ()
 	{
 		$HUID = new HUID;
-		$testHUID = '333333333333344444455566777';
+		$testHUID = '333333333333344445556667777';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '6666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '6666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbb'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbbb'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '6666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '66'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '66'));
 	}
 
 
@@ -216,7 +216,7 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidBin ()
 	{
 		$HUID = new HUID;
-		$testHUID = '3333333DDDEUVfww';
+		$testHUID = '3333333DDEUVfgww';
 		$this->assertEquals('bin', $HUID->validateHUID($testHUID));
 	}
 
@@ -233,10 +233,10 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidBinWithMatchingNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '3333333DDDEUVfww';
+		$testHUID = '3333333DDEUVfgww';
 		$this->assertEquals('bin', $HUID->validateHUID($testHUID, '5555'));
-		$this->assertEquals('bin', $HUID->validateHUID($testHUID, null, '666'));
-		$this->assertEquals('bin', $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals('bin', $HUID->validateHUID($testHUID, null, '6666'));
+		$this->assertEquals('bin', $HUID->validateHUID($testHUID, '5555', '6666'));
 	}
 
 
@@ -252,10 +252,10 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidBinWithNonmatchingNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '3333333DDDEUVfww';
+		$testHUID = '3333333DDEUVfgww';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbb'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbbb'));
 	}
 
 
@@ -271,12 +271,12 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testValidBinwithInvalidNS ()
 	{
 		$HUID = new HUID;
-		$testHUID = '3333333DDDEUVfww';
+		$testHUID = '3333333DDEUVfgww';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '66'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
 	}
 
 
@@ -291,18 +291,18 @@ class validateHUIDTest extends PHPUnit_Framework_TestCase
 	public function testInvalidBin ()
 	{
 		$HUID = new HUID;
-		$testHUID = '333333DDEVw';
+		$testHUID = '333333DDUfw';
 		$this->assertEquals(false, $HUID->validateHUID($testHUID));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '6666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '6666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbb'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, 'bbbb'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, 'aaaa', 'bbbb'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '66'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, null, '666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '6666'));
+		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '666'));
 		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '666'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '5555', '66'));
-		$this->assertEquals(false, $HUID->validateHUID($testHUID, '555', '66'));
 	}
 }

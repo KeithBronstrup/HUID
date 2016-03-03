@@ -13,7 +13,7 @@ class hexToBinTest extends PHPUnit_Framework_TestCase
 	public function testSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals('3333333DDDEUVfww', $HUID->hexToBin('33333333333333444444455556667777'));
+		$this->assertEquals('3333333DDEUVfgww', $HUID->hexToBin('33333333333333444445555666677777'));
 	}
 
 
@@ -28,6 +28,6 @@ class hexToBinTest extends PHPUnit_Framework_TestCase
 	public function testFailure ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->hexToBin('333333333333344444455566777'));
+		$this->assertEquals(false, $HUID->hexToBin('333333333333344445556667777'));
 	}
 }

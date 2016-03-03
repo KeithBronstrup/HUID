@@ -13,9 +13,9 @@ class generateTest extends PHPUnit_Framework_TestCase
 	public function testSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
 		$this->assertEquals(true, $HUID->generate());
-		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{7}-a{4}-b{3}-[0-9a-f]{4}/', $HUID->get('str')));
+		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{5}-5{4}-6{4}-[0-9a-f]{5}/', $HUID->get('str')));
 	}
 
 
@@ -30,9 +30,9 @@ class generateTest extends PHPUnit_Framework_TestCase
 	public function testInvalidNSFailAfterSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
 		$this->assertEquals(true, $HUID->generate());
-		$this->assertEquals(false, $HUID->setNS('aaa', 'bb'));
+		$this->assertEquals(false, $HUID->setNS('555', '666'));
 		$this->assertEquals(false, $HUID->generate());
 		$this->assertEquals(false, $HUID->get('str'));
 	}
@@ -49,7 +49,7 @@ class generateTest extends PHPUnit_Framework_TestCase
 	public function testInvalidPrimaryFail ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('555', '6666'));
 		$this->assertEquals(false, $HUID->generate());
 		$this->assertEquals(false, $HUID->get('str'));
 	}
@@ -66,7 +66,7 @@ class generateTest extends PHPUnit_Framework_TestCase
 	public function testInvalidSecondaryFail ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '666'));
 		$this->assertEquals(false, $HUID->generate());
 		$this->assertEquals(false, $HUID->get('str'));
 	}
@@ -83,7 +83,7 @@ class generateTest extends PHPUnit_Framework_TestCase
 	public function testInvalidPairFail ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->setNS('aaa', 'bb'));
+		$this->assertEquals(false, $HUID->setNS('555', '666'));
 		$this->assertEquals(false, $HUID->generate());
 		$this->assertEquals(false, $HUID->get('str'));
 	}

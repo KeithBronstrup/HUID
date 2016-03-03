@@ -13,7 +13,7 @@ class hexToStrTest extends PHPUnit_Framework_TestCase
 	public function testSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals('33333333333333-4444444-5555-666-7777', $HUID->hexToStr('33333333333333444444455556667777'));
+		$this->assertEquals('33333333333333-44444-5555-6666-77777', $HUID->hexToStr('33333333333333444445555666677777'));
 	}
 
 
@@ -28,6 +28,6 @@ class hexToStrTest extends PHPUnit_Framework_TestCase
 	public function testFailure ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->hexToStr('333333333333344444455566777'));
+		$this->assertEquals(false, $HUID->hexToStr('333333333333344445556667777'));
 	}
 }

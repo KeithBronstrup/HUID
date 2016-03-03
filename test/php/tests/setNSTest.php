@@ -13,8 +13,8 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testValidPrimary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
+		$this->assertEquals(true, $HUID->setNS('5555'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
 	}
@@ -31,8 +31,8 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testValidSecondary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS(null, 'bbb'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
+		$this->assertEquals(true, $HUID->setNS(null, '6666'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
 	}
@@ -49,10 +49,10 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testValidPair ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
-		$this->assertEquals('aaaa-bbb', $HUID->getNS('both'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
+		$this->assertEquals('5555-6666', $HUID->getNS('both'));
 	}
 
 
@@ -67,7 +67,7 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testInvalidPrimary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->setNS('aaa'));
+		$this->assertEquals(false, $HUID->setNS('555'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
@@ -85,7 +85,7 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testInvalidSecondary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->setNS(null, 'bb'));
+		$this->assertEquals(false, $HUID->setNS(null, '666'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
@@ -103,7 +103,7 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testInvalidPair ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->setNS('aaa', 'bb'));
+		$this->assertEquals(false, $HUID->setNS('555', '666'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
@@ -121,9 +121,9 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testInvalidPrimaryWithValidSecondary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('555', '6666'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
 	}
 
@@ -139,8 +139,8 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testInvalidSecondaryWithValidPrimary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bb'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
+		$this->assertEquals(true, $HUID->setNS('5555', '666'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
 	}
@@ -157,9 +157,9 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testReplacePrimaryOnInvalid ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
-		$this->assertEquals(false, $HUID->setNS('aaa'));
+		$this->assertEquals(true, $HUID->setNS('5555'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
+		$this->assertEquals(false, $HUID->setNS('555'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
 	}
 
@@ -175,9 +175,9 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testReplaceSecondaryOnInvalid ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS(null, 'bbb'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
-		$this->assertEquals(false, $HUID->setNS(null, 'bb'));
+		$this->assertEquals(true, $HUID->setNS(null, '6666'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
+		$this->assertEquals(false, $HUID->setNS(null, '666'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 	}
 
@@ -193,11 +193,11 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testReplacePairOnInvalid ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
-		$this->assertEquals('aaaa-bbb', $HUID->getNS('both'));
-		$this->assertEquals(false, $HUID->setNS('aaa', 'bb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
+		$this->assertEquals('5555-6666', $HUID->getNS('both'));
+		$this->assertEquals(false, $HUID->setNS('555', '666'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
@@ -215,13 +215,13 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testReplacePrimaryOnInvalidWithValidSecondary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
-		$this->assertEquals('aaaa-bbb', $HUID->getNS('both'));
-		$this->assertEquals(true, $HUID->setNS('aaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
+		$this->assertEquals('5555-6666', $HUID->getNS('both'));
+		$this->assertEquals(true, $HUID->setNS('555', '6666'));
 		$this->assertEquals(false, $HUID->getNS('primary'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
 	}
 
@@ -237,12 +237,12 @@ class setNSTest extends PHPUnit_Framework_TestCase
 	public function testReplaceSecondaryOnInvalidWithValidPrimary ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
-		$this->assertEquals('bbb', $HUID->getNS('secondary'));
-		$this->assertEquals('aaaa-bbb', $HUID->getNS('both'));
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bb'));
-		$this->assertEquals('aaaa', $HUID->getNS('primary'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
+		$this->assertEquals('6666', $HUID->getNS('secondary'));
+		$this->assertEquals('5555-6666', $HUID->getNS('both'));
+		$this->assertEquals(true, $HUID->setNS('5555', '666'));
+		$this->assertEquals('5555', $HUID->getNS('primary'));
 		$this->assertEquals(false, $HUID->getNS('secondary'));
 		$this->assertEquals(false, $HUID->getNS('both'));
 	}

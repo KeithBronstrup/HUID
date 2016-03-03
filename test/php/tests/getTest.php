@@ -13,9 +13,9 @@ class getTest extends PHPUnit_Framework_TestCase
 	public function testGetStr ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbbb'));
 		$this->assertEquals(true, $HUID->generate());
-		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{7}-a{4}-b{3}-[0-9a-f]{4}/', $HUID->get('str')));
+		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{5}-a{4}-b{4}-[0-9a-f]{5}/', $HUID->get('str')));
 	}
 
 
@@ -30,7 +30,7 @@ class getTest extends PHPUnit_Framework_TestCase
 	public function testGetHex ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbbb'));
 		$this->assertEquals(true, $HUID->generate());
 		$HUIDValue = $HUID->get('hex');
 		$this->assertEquals($HUIDValue, strtolower($HUIDValue));
@@ -50,7 +50,7 @@ class getTest extends PHPUnit_Framework_TestCase
 	public function testGetBin ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
 		$this->assertEquals(true, $HUID->generate());
 		$HUIDValue = $HUID->get('bin');
 		$this->assertEquals(16, strlen($HUIDValue));
@@ -69,11 +69,11 @@ class getTest extends PHPUnit_Framework_TestCase
 	public function testGetObj ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(true, $HUID->setNS('aaaa', 'bbb'));
+		$this->assertEquals(true, $HUID->setNS('5555', '6666'));
 		$this->assertEquals(true, $HUID->generate());
 		$HUIDValue = $HUID->get('obj');
 		$this->assertEquals('stdClass', get_class($HUIDValue));
-		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{7}-a{4}-b{3}-[0-9a-f]{4}/', $HUIDValue->str));
+		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{5}-5{4}-6{4}-[0-9a-f]{5}/', $HUIDValue->str));
 		$this->assertEquals($HUIDValue->hex, strtolower($HUIDValue->hex));
 		$this->assertEquals(32, strlen($HUIDValue->hex));
 		$this->assertEquals(true, ctype_xdigit($HUIDValue->hex));

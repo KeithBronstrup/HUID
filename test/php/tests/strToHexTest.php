@@ -13,7 +13,7 @@ class strToHexTest extends PHPUnit_Framework_TestCase
 	public function testSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals('33333333333333444444455556667777', $HUID->strToHex('33333333333333-4444444-5555-666-7777'));
+		$this->assertEquals('33333333333333444445555666677777', $HUID->strToHex('33333333333333-44444-5555-6666-77777'));
 	}
 
 
@@ -28,6 +28,6 @@ class strToHexTest extends PHPUnit_Framework_TestCase
 	public function testFailure ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->strToHex('3333333333333-444444-555-66-777'));
+		$this->assertEquals(false, $HUID->strToHex('3333333333333-4444-555-666-7777'));
 	}
 }

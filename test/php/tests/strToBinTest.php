@@ -13,7 +13,7 @@ class strToBinTest extends PHPUnit_Framework_TestCase
 	public function testSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals('3333333DDDEUVfww', $HUID->strToBin('33333333333333-4444444-5555-666-7777'));
+		$this->assertEquals('3333333DDEUVfgww', $HUID->strToBin('33333333333333-44444-5555-6666-77777'));
 	}
 
 
@@ -28,6 +28,6 @@ class strToBinTest extends PHPUnit_Framework_TestCase
 	public function testFailure ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->strToBin('3333333333333-444444-555-66-777'));
+		$this->assertEquals(false, $HUID->strToBin('3333333333333-4444-555-666-7777'));
 	}
 }
