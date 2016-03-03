@@ -8,44 +8,39 @@ $primaryNS   = '1b3d';
 $secondaryNS = '5f7';
 ?>
 <pre>HUID String Example
-    <?PHP
-    echo getHUID($primaryNS, $secondaryNS);
+	<?PHP
+	echo getHUID($primaryNS, $secondaryNS);
 
-    /* OUTPUT:
-	00000056b24b88-229a6c4-1b3d-5f7-581e
-	*/
-    ?>
+	/* OUTPUT:
+	33333333333333-44444-5555-6666-77777
+	*/?>
 
-    HUID Hexadecimal Example
-    <?PHP
-    echo getHUID($primaryNS, $secondaryNS, 'hex');
+	HUID Hexadecimal Example
+	<?PHP
+	echo getHUID($primaryNS, $secondaryNS, 'hex');
 
-    /* OUTPUT:
-	00000056b24b88229a6c41b3d5f7581e
-	*/
-    ?>
+	/* OUTPUT:
+	33333333333333444445555666677777
+	*/?>
 
-    HUID Binary Example
-    <?PHP
-    echo getHUID($primaryNS, $secondaryNS, 'bin');
+	HUID Binary Example
+	<?PHP
+	echo getHUID($primaryNS, $secondaryNS, 'bin');
 
-    /* OUTPUT:
-	V�K�"�lA���X
-	*/
-    ?>
+	/* OUTPUT:
+	3333333DDEUVfgww
+	*/?>
 
-    HUID Object Example
-    <?PHP
-    print_r(getHUID($primaryNS, $secondaryNS, 'obj'));
+	HUID Object Example
+	<?PHP
+	print_r(getHUID($primaryNS, $secondaryNS, 'obj'));
 
-    /* OUTPUT:
+	/* OUTPUT:
 	stdClass Object
 	(
-		[str] => 00000056b24b88-229a6c4-1b3d-5f7-581e
-		[hex] => 00000056b24b88229a6c41b3d5f7581e
-		[bin] => V�K�"�lA���X
+		[str] => 33333333333333-44444-5555-6666-77777
+		[hex] => 33333333333333444445555666677777
+		[bin] => 3333333DDEUVfgww
 	)
-	*/
-
-    ?>
+	*/?>
 </pre>

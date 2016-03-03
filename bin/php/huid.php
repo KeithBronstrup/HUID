@@ -29,7 +29,7 @@ class HUID
 	 * Create a new HUID object, optionally generating a new HUID value with the supplied namespace values
 	 *
 	 * @param string $primaryNS    The primary namespace to set, 4 hexadecimal characters
-	 * @param string $secondaryNS  The secondary namespace to set, 3 hexadecimal characters
+	 * @param string $secondaryNS  The secondary namespace to set, 4 hexadecimal characters
 	 *
 	 * @throws Exception
 	 */
@@ -71,8 +71,8 @@ class HUID
 			return false;
 		} else {
 			$this->time = str_pad(dechex(time()), 14, '0', STR_PAD_LEFT);
-			$this->usec = str_pad(dechex(substr(microtime(), 2, 8)), 7, '0', STR_PAD_LEFT);
-			$this->rand = str_pad(dechex(mt_rand(0,0xffff)), 4, '0', STR_PAD_LEFT);
+			$this->usec = str_pad(dechex(substr(microtime(), 2, 5)), 5, '0', STR_PAD_LEFT);
+			$this->rand = str_pad(dechex(mt_rand(0,0xfffff)), 5, '0', STR_PAD_LEFT);
 
 			return true;
 		}
@@ -83,8 +83,8 @@ class HUID
 	 * Get the current HUID
 	 *
 	 * @param string $format  The desired output format, one of 'str', 'hex', 'bin', or 'obj'. Default 'str'
-	 *                         - str: Return a 36 character string in the format AAAAAAAAAAAAAA-BBBBBBB-CCCC-DDD-EEEE
-	 *                         - hex: Return a 32 digit hexadecimal value in the format AAAAAAAAAAAAAABBBBBBBCCCCDDDEEEE
+	 *                         - str: Return a 36 character string in the format AAAAAAAAAAAAAA-BBBBB-CCCC-DDDD-EEEEE
+	 *                         - hex: Return a 32 digit hexadecimal value in the format AAAAAAAAAAAAAABBBBBCCCCDDDDEEEEE
 	 *                         - bin: Return a 16 byte binary string
 	 *                         - obj: Return an object containing all 3 formats
 	 *
@@ -123,7 +123,7 @@ class HUID
 	 * Set the namespace(s) for generated HUIDs
 	 *
 	 * @param string $primaryNS    The primary namespace to set, 4 hexadecimal characters
-	 * @param string $secondaryNS  The secondary namespace to set, 3 hexadecimal characters
+	 * @param string $secondaryNS  The secondary namespace to set, 4 hexadecimal characters
 	 *
 	 * @return bool  Returns true on success, false on failure
 	 */
@@ -212,7 +212,7 @@ class HUID
 	 * Validate one or both namespaces
 	 *
 	 * @param string $primaryNS    The primary namespace to validate, 4 hexadecimal characters
-	 * @param string $secondaryNS  The secondary namespace to validate, 3 hexadecimal characters
+	 * @param string $secondaryNS  The secondary namespace to validate, 4 hexadecimal characters
 	 *
 	 * @return mixed  Returns 'primary' if $primaryNS is a valid namespace, 'secondary' if $secondaryNS is a valid namespace, 'both' if both are valid, or false if neither are valid
 	 */
@@ -227,7 +227,7 @@ class HUID
 			} else {
 				return 'primary';
 			}
-		} else if (strlen($secondaryNS) === 3
+		} else if (strlen($secondaryNS) === 4
 		 && ctype_xdigit($secondaryNS))
 		{
 			return 'secondary';
@@ -246,7 +246,7 @@ class HUID
 	 */
 
 	protected function isStr ($HUID) {
-		return preg_match('/[0-9a-f]{14}-[0-9a-f]{7}-[0-9a-f]{4}-[0-9a-f]{3}-[0-9a-f]{4}/', $HUID) ? true : false;
+		return preg_match('/[0-9a-f]{14}-[0-9a-f]{5}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{5}/', $HUID) ? true : false;
 	}
 
 
@@ -338,10 +338,10 @@ class HUID
 		}
 
 		$a = substr($HUID,  0, 14);
-		$b = substr($HUID, 14,  7);
-		$c = substr($HUID, 21,  4);
-		$d = substr($HUID, 25,  3);
-		$e = substr($HUID, 28,   4);
+		$b = substr($HUID, 14,  5);
+		$c = substr($HUID, 19,  4);
+		$d = substr($HUID, 23,  4);
+		$e = substr($HUID, 27,  5);
 
 		return $a.'-'.$b.'-'.$c.'-'.$d.'-'.$e;
 	}
@@ -406,7 +406,7 @@ class HUID
 	 *
 	 * @param string $HUID          The HUID to validate, as a string in any valid HUID format (e.g. string, hex, binary, or object)
 	 * @param string $primaryNS     The primary namespace to validate against, 4 hexadecimal characters
-	 * @param string $secondaryNS   The secondary namespace to validate against, 3 hexadecimal characters
+	 * @param string $secondaryNS   The secondary namespace to validate against, 4 hexadecimal characters
 	 *
 	 * @return mixed  Returns a string containing the format ('str', 'hex', or 'bin') of $HUID if $HUID contains a valid HUID value and matches the optionally-provided namespace(s); returns false if the HUID is invalid or does not match the provided namespaces
 	 */
@@ -436,18 +436,18 @@ class HUID
 		if ($this->isStr($HUID)) {
 			$format = 'str';
 			$hexHUID = $this->strToHex($HUID);
-			$c = substr($hexHUID, 21,  4);
-			$d = substr($hexHUID, 25,  3);
+			$c = substr($hexHUID, 19, 4);
+			$d = substr($hexHUID, 23, 4);
 
 		} else if ($this->isHex($HUID)) {
 			$format = 'hex';
-			$c = substr($HUID, 21,  4);
-			$d = substr($HUID, 25,  3);
+			$c = substr($HUID, 19, 4);
+			$d = substr($HUID, 23, 4);
 		} else if ($this->isBin($HUID)) {
 			$format = 'bin';
 			$hexHUID = $this->binToHex($HUID);
-			$c = substr($hexHUID, 21,  4);
-			$d = substr($hexHUID, 25,  3);
+			$c = substr($hexHUID, 19, 4);
+			$d = substr($hexHUID, 23, 4);
 		} else {
 			return false;
 		}
@@ -475,41 +475,41 @@ class HUID
 	public function testProtected ($method) {
 		switch ($method) {
 			case 'validateNS':
-				if ($this->validateNS('aaaa')        === 'primary'
-				 && $this->validateNS('aaaa', null)        === 'primary'
-				 && $this->validateNS('aaaa', 'bb')  === 'primary'
-				 && $this->validateNS(null, 'bbb')   === 'secondary'
-				 && $this->validateNS('aaa', 'bbb')  === 'secondary'
-				 && $this->validateNS('aaaa', 'bbb') === 'both'
-				 && $this->validateNS('aaa', null)   === false
-				 && $this->validateNS(null, 'bb')    === false
-				 && $this->validateNS()              === false
-				 && $this->validateNS(null, null)    === false
-				 && $this->validateNS('aaa', 'bb')   === false)
+				if ($this->validateNS('5555')         === 'primary'
+				 && $this->validateNS('5555',   null) === 'primary'
+				 && $this->validateNS('5555',  '666') === 'primary'
+				 && $this->validateNS(  null, '6666') === 'secondary'
+				 && $this->validateNS( '555', '6666') === 'secondary'
+				 && $this->validateNS('5555', '6666') === 'both'
+				 && $this->validateNS( '555',   null) === false
+				 && $this->validateNS(  null,  '666') === false
+				 && $this->validateNS(  null,   null) === false
+				 && $this->validateNS( '555',  '666') === false
+				 && $this->validateNS()               === false)
 				{
 					return true;
 				}
 				break;
 			case 'isStr':
-				if ($this->isStr('aaaaaaaaaaaaaa-bbbbbbb-cccc-ddd-eeee') === true
-				 && $this->isStr('aaaaaaaaaaaaaabbbbbbbccccdddeeee') === false
-				 && $this->isStr('aaaaaaaaaaaaaabbbbbbbccccdddeeee') === false)
+				if ($this->isStr('33333333333333-44444-5555-6666-77777') === true
+				 && $this->isStr('33333333333333444445555666677777') === false
+				 && $this->isStr('3333333DDEUVfgww') === false)
 				{
 					return true;
 				}
 				break;
 			case 'isHex':
-				if ($this->isHex('aaaaaaaaaaaaaabbbbbbbccccdddeeee') === true
-				 && $this->isHex('aaaaaaaaaaaaaa-bbbbbbb-cccc-ddd-eeee') === false
-				 && $this->isHex('3333333DDDEUVfww') === false)
+				if ($this->isHex('33333333333333444445555666677777') === true
+				 && $this->isHex('33333333333333-44444-5555-6666-77777') === false
+				 && $this->isHex('3333333DDEUVfgww') === false)
 				{
 					return true;
 				}
 				break;
 			case 'isBin':
-				if ($this->isBin('3333333DDDEUVfww') === true
-				 && $this->isBin('aaaaaaaaaaaaaa-bbbbbbb-cccc-ddd-eeee') === false
-				 && $this->isBin('aaaaaaaaaaaaaabbbbbbbccccdddeeee') === false)
+				if ($this->isBin('3333333DDEUVfgww') === true
+				 && $this->isBin('33333333333333-44444-5555-6666-77777') === false
+				 && $this->isBin('33333333333333444445555666677777') === false)
 				{
 					return true;
 				}

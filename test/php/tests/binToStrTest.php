@@ -13,7 +13,7 @@ class binToStrTest extends PHPUnit_Framework_TestCase
 	public function testSuccess ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals('33333333333333-4444444-5555-666-7777', $HUID->binToStr('3333333DDDEUVfww'));
+		$this->assertEquals('33333333333333-44444-5555-6666-77777', $HUID->binToStr('3333333DDEUVfgww'));
 	}
 
 
@@ -28,6 +28,6 @@ class binToStrTest extends PHPUnit_Framework_TestCase
 	public function testFailure ()
 	{
 		$HUID = new HUID;
-		$this->assertEquals(false, $HUID->binToStr('333333DDEVw'));
+		$this->assertEquals(false, $HUID->binToStr('333333DDUfw'));
 	}
 }

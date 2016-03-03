@@ -24,7 +24,7 @@ class __constructTest extends PHPUnit_Framework_TestCase
 
 	public function testCanBeConstructedWithValidParams ()
 	{
-		$this->assertEquals('HUID', get_class(new HUID('aaaa', 'bbb')));
+		$this->assertEquals('HUID', get_class(new HUID('5555', '6666')));
 	}
 
 
@@ -38,7 +38,7 @@ class __constructTest extends PHPUnit_Framework_TestCase
 	{
 		try
 		{
-			new HUID('aaa', 'bbb');
+			new HUID('555', '6666');
 			$this->fail('Expected exception "HUID created with invalid Primary Namespace" not thrown');
 		} catch (Exception $e) {
 			$this->assertEquals('HUID created with invalid Primary Namespace', $e->getMessage());
@@ -46,7 +46,7 @@ class __constructTest extends PHPUnit_Framework_TestCase
 
 		try
 		{
-			new HUID('aaaa', 'bb');
+			new HUID('5555', '666');
 			$this->fail('Expected exception "HUID created with invalid Secondary Namespace" not thrown');
 		} catch (Exception $e) {
 			$this->assertEquals('HUID created with invalid Secondary Namespace', $e->getMessage());
@@ -54,7 +54,7 @@ class __constructTest extends PHPUnit_Framework_TestCase
 
 		try
 		{
-			new HUID('aaa', 'bb');
+			new HUID('555', '666');
 			$this->fail('Expected exception "HUID created with invalid Primary and Secondary Namespaces" not thrown');
 		} catch (Exception $e) {
 			$this->assertEquals('HUID created with invalid Primary and Secondary Namespaces', $e->getMessage());
@@ -73,7 +73,7 @@ class __constructTest extends PHPUnit_Framework_TestCase
 
 	public function testGeneratesHUIDWithValidParams ()
 	{
-		$HUID = new HUID('aaaa', 'bbb');
-		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{7}-a{4}-b{3}-[0-9a-f]{4}/', $HUID->get('str')));
+		$HUID = new HUID('5555', '6666');
+		$this->assertEquals(1, preg_match('/[0-9a-f]{14}-[0-9a-f]{5}-5{4}-6{4}-[0-9a-f]{5}/', $HUID->get('str')));
 	}
 }
