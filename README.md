@@ -81,5 +81,18 @@ Due to the field ordering decisions made in the design of HUID, the indexing
 window is effectively limited to one second, plus the widest time differential
 between any two hosts generating HUIDs, plus network latency.
 
+### Additional Documentation
+
+For more non-language-dependent information, please review to contents of the
+[docs directory](https://github.com/KeMBro2012/HUID/tree/master/docs):
+
+ - [Technical Details](https://github.com/KeMBro2012/HUID/tree/master/docs/TECHNICAL.md)
+ - [Usage](https://github.com/KeMBro2012/HUID/tree/master/docs/USAGE.md)
+ - [Caveats](https://github.com/KeMBro2012/HUID/tree/master/docs/CAVEATS.md)
+ - [FAQ](https://github.com/KeMBro2012/HUID/tree/master/docs/FAQ.md)
+
+Language-dependent documentation can be found in the README.md in the reference
+subdirectory for each language.
+
 -----
 ##### Copyright (c) 2016 Keith Bronstrup and Contributors
